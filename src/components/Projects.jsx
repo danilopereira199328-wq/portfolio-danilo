@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+
 const projects = [
   {
     title: "DizAI",
@@ -57,24 +59,53 @@ const projects = [
   }
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+};
+
 export default function Projects() {
   return (
     <section id="projects" className="py-20 px-4 bg-gray-900/50">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold mb-12 text-center">Projetos</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.h2 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl font-bold mb-12 text-center"
+        >
+          Projetos
+        </motion.h2>
+        
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {projects.map((p, i) => (
-            <div key={i} className="bg-gray-800 rounded-2xl border border-gray-700 shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1 transition duration-300 flex flex-col overflow-hidden">
+            <motion.div 
+              key={i} 
+              variants={itemVariants}
+              className="bg-gray-800 rounded-2xl border border-gray-700 shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1 transition duration-300 flex flex-col overflow-hidden"
+            >
               <img 
                 src={p.image} 
                 alt={p.title} 
                 className="w-full h-48 object-cover border-b border-gray-700" 
               />
-
               <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-2xl font-bold mb-2 text-white">{p.title}</h3>
                 <p className="text-gray-400 mb-4 flex-grow text-sm">{p.description}</p>
-                
                 <div className="flex flex-wrap gap-2 mb-6">
                   {p.tech.map((t, j) => (
                     <span key={j} className="bg-blue-600/20 text-blue-400 text-xs px-2 py-1 rounded-full border border-blue-500/30">
@@ -82,7 +113,6 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
-
                 <div className="flex gap-4 mt-auto">
                   {p.github !== "#" && (
                     <a href={p.github} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 font-medium text-sm transition">
@@ -96,9 +126,9 @@ export default function Projects() {
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
