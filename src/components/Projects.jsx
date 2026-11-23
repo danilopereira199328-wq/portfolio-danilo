@@ -2,6 +2,14 @@ import { motion } from 'framer-motion';
 
 const projects = [
   {
+    title: "Só Cusquices",
+    description: "Clone do X (Twitter) para partilha de cusquices e fofocas. Feed em tempo real, likes, comentários, seguidores e sistema de guardados.",
+    tech: ["React", "Firebase", "Tailwind", "Firestore"],
+    github: "https://github.com/danilopereira199328-wq/so-cusquices",
+    demo: "https://so-cusquices-e3id.vercel.app",
+    image: "/so-cusquices.png"
+  },
+  {
     title: "DizAI",
     description: "Chat com IA em tempo real, múltiplas conversas, login com Google, dark/light mode e exportação de conversas.",
     tech: ["React", "Node.js", "Firebase", "Groq API"],
@@ -61,10 +69,7 @@ const projects = [
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
 };
 
 const itemVariants = {
@@ -74,15 +79,15 @@ const itemVariants = {
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 px-4 bg-gray-900/50">
+    <section id="projects" className="py-24 px-4 bg-gray-900/30">
       <div className="max-w-6xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold mb-12 text-center"
+          className="text-3xl md:text-4xl font-bold mb-16 text-center"
         >
-          Projetos
+          Projetos <span className="text-primary">.</span>
         </motion.h2>
         
         <motion.div 
@@ -96,31 +101,35 @@ export default function Projects() {
             <motion.div 
               key={i} 
               variants={itemVariants}
-              className="bg-gray-800 rounded-2xl border border-gray-700 shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1 transition duration-300 flex flex-col overflow-hidden"
+              className="bg-gray-900 rounded-2xl border border-gray-800 shadow-lg hover:shadow-primary/10 hover:-translate-y-1 transition duration-300 flex flex-col overflow-hidden group"
             >
-              <img 
-                src={p.image} 
-                alt={p.title} 
-                className="w-full h-48 object-cover border-b border-gray-700" 
-              />
+              <div className="overflow-hidden h-48">
+                <img 
+                  src={p.image} 
+                  alt={p.title} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+                />
+              </div>
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-2xl font-bold mb-2 text-white">{p.title}</h3>
-                <p className="text-gray-400 mb-4 flex-grow text-sm">{p.description}</p>
+                <h3 className="text-xl font-bold mb-2 text-white group-hover:text-primary transition">{p.title}</h3>
+                <p className="text-gray-400 mb-4 flex-grow text-sm leading-relaxed">{p.description}</p>
+                
                 <div className="flex flex-wrap gap-2 mb-6">
                   {p.tech.map((t, j) => (
-                    <span key={j} className="bg-blue-600/20 text-blue-400 text-xs px-2 py-1 rounded-full border border-blue-500/30">
+                    <span key={j} className="bg-primary/10 text-primary text-xs px-2.5 py-1 rounded-full border border-primary/20">
                       {t}
                     </span>
                   ))}
                 </div>
+
                 <div className="flex gap-4 mt-auto">
                   {p.github !== "#" && (
-                    <a href={p.github} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 font-medium text-sm transition">
+                    <a href={p.github} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white font-medium text-sm transition flex items-center gap-1">
                       💻 GitHub
                     </a>
                   )}
                   {p.demo !== "#" && (
-                    <a href={p.demo} target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 font-medium text-sm transition">
+                    <a href={p.demo} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-indigo-400 font-medium text-sm transition flex items-center gap-1">
                       🚀 Demo
                     </a>
                   )}
